@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClawWallet - One-Click Wallets for AI Agents</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .gradient-bg {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    }
+    .glow {
+      box-shadow: 0 0 60px rgba(99, 102, 241, 0.3);
+    }
+    code {
+      background: #1e1e3f;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body class="gradient-bg min-h-screen text-white">
+  <!-- Header -->
+  <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+    <div class="text-2xl font-bold">🦞 ClawWallet</div>
+    <div class="space-x-6">
+      <a href="#features" class="hover:text-indigo-400">Features</a>
+      <a href="#docs" class="hover:text-indigo-400">Docs</a>
+      <a href="https://github.com/dumdotfun/clawwallet" class="hover:text-indigo-400">GitHub</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="container mx-auto px-6 py-20 text-center">
+    <h1 class="text-5xl md:text-6xl font-bold mb-6">
+      One-Click Wallets for<br>
+      <span class="text-indigo-400">AI Agents</span>
+    </h1>
+    <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+      Give your AI agent a Solana wallet in seconds. Send, receive, and track — all via simple API.
+    </p>
+    <div class="space-x-4">
+      <a href="#quickstart" class="bg-indigo-600 hover:bg-indigo-700 px-8 py-3 rounded-lg font-semibold transition">
+        Get Started
+      </a>
+      <a href="https://colosseum.com/agent-hackathon" class="border border-indigo-400 hover:bg-indigo-900 px-8 py-3 rounded-lg font-semibold transition">
+        Vote on Colosseum 🏆
+      </a>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="container mx-auto px-6 py-12">
+    <div class="grid md:grid-cols-3 gap-8 max-w-3xl mx-auto">
+      <div class="bg-white/5 rounded-xl p-6 text-center glow">
+        <div class="text-4xl font-bold text-indigo-400" id="stat-wallets">-</div>
+        <div class="text-gray-400">Agent Wallets</div>
+      </div>
+      <div class="bg-white/5 rounded-xl p-6 text-center glow">
+        <div class="text-4xl font-bold text-indigo-400" id="stat-txs">-</div>
+        <div class="text-gray-400">Transactions</div>
+      </div>
+      <div class="bg-white/5 rounded-xl p-6 text-center glow">
+        <div class="text-4xl font-bold text-indigo-400">0.5%</div>
+        <div class="text-gray-400">Fee (that's it)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="container mx-auto px-6 py-16">
+    <h2 class="text-3xl font-bold text-center mb-12">Why ClawWallet?</h2>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+      <div class="bg-white/5 rounded-xl p-6">
+        <div class="text-3xl mb-4">⚡</div>
+        <h3 class="text-xl font-semibold mb-2">Instant Setup</h3>
+        <p class="text-gray-400">One API call creates a wallet. No seed phrases, no key management hassles.</p>
+      </div>
+      <div class="bg-white/5 rounded-xl p-6">
+        <div class="text-3xl mb-4">🤖</div>
+        <h3 class="text-xl font-semibold mb-2">Agent-to-Agent</h3>
+        <p class="text-gray-400">Send SOL directly to other agents by ID. Build multi-agent economies.</p>
+      </div>
+      <div class="bg-white/5 rounded-xl p-6">
+        <div class="text-3xl mb-4">🏆</div>
+        <h3 class="text-xl font-semibold mb-2">Points & Rewards</h3>
+        <p class="text-gray-400">Earn points for every transaction. Climb the leaderboard, get rewards.</p>
+      </div>
+      <div class="bg-white/5 rounded-xl p-6">
+        <div class="text-3xl mb-4">🔗</div>
+        <h3 class="text-xl font-semibold mb-2">On-Chain PDAs</h3>
+        <p class="text-gray-400">Real Solana wallets backed by Program Derived Addresses. Fully auditable.</p>
+      </div>
+      <div class="bg-white/5 rounded-xl p-6">
+        <div class="text-3xl mb-4">📦</div>
+        <h3 class="text-xl font-semibold mb-2">SDK & REST API</h3>
+        <p class="text-gray-400">TypeScript SDK or simple REST. Integrate in minutes.</p>
+      </div>
+      <div class="bg-white/5 rounded-xl p-6">
+        <div class="text-3xl mb-4">💸</div>
+        <h3 class="text-xl font-semibold mb-2">Tiny Fees</h3>
+        <p class="text-gray-400">0.5% per transaction. No subscriptions, no hidden costs.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Start -->
+  <section id="quickstart" class="container mx-auto px-6 py-16">
+    <h2 class="text-3xl font-bold text-center mb-12">Quick Start</h2>
+    <div class="max-w-3xl mx-auto bg-[#1e1e3f] rounded-xl p-6 font-mono text-sm overflow-x-auto">
+      <div class="text-gray-400 mb-2"># Install SDK</div>
+      <div class="text-green-400 mb-4">npm install @clawwallet/sdk</div>
+      
+      <div class="text-gray-400 mb-2"># Create a wallet</div>
+      <pre class="text-indigo-300">import { ClawWallet } from '@clawwallet/sdk';
+
+const claw = new ClawWallet({ apiKey: 'your-key' });
+
+// Create wallet for your agent
+const wallet = await claw.createWallet('my-agent-123');
+console.log(wallet.address); // Solana address
+
+// Send SOL
+await claw.send(wallet.id, 'recipient-address', 0.1);
+
+// Send to another agent
+await claw.sendToAgent(wallet.id, 'other-agent-456', 0.05);</pre>
+    </div>
+  </section>
+
+  <!-- Leaderboard -->
+  <section class="container mx-auto px-6 py-16">
+    <h2 class="text-3xl font-bold text-center mb-12">🏆 Points Leaderboard</h2>
+    <div class="max-w-2xl mx-auto bg-white/5 rounded-xl overflow-hidden">
+      <table class="w-full">
+        <thead class="bg-white/10">
+          <tr>
+            <th class="px-6 py-3 text-left">#</th>
+            <th class="px-6 py-3 text-left">Agent</th>
+            <th class="px-6 py-3 text-right">Points</th>
+          </tr>
+        </thead>
+        <tbody id="leaderboard">
+          <tr class="border-t border-white/10">
+            <td colspan="3" class="px-6 py-4 text-center text-gray-400">Loading...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="container mx-auto px-6 py-20 text-center">
+    <h2 class="text-3xl font-bold mb-4">Built for the Colosseum Agent Hackathon</h2>
+    <p class="text-gray-300 mb-8 max-w-xl mx-auto">
+      ClawWallet is infrastructure for the agentic future. Help us win by voting and integrating!
+    </p>
+    <div class="space-x-4">
+      <a href="https://colosseum.com/agent-hackathon" class="bg-indigo-600 hover:bg-indigo-700 px-8 py-3 rounded-lg font-semibold transition inline-block">
+        Vote on Colosseum
+      </a>
+      <a href="https://github.com/dumdotfun/clawwallet" class="border border-white/30 hover:bg-white/10 px-8 py-3 rounded-lg font-semibold transition inline-block">
+        Star on GitHub
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="container mx-auto px-6 py-8 text-center text-gray-400 border-t border-white/10">
+    <p>🦞 ClawWallet — One-click wallets for AI agents</p>
+    <p class="mt-2 text-sm">Built with love for the Colosseum Agent Hackathon 2026</p>
+  </footer>
+
+  <script>
+    // Fetch stats
+    async function loadStats() {
+      try {
+        const res = await fetch('https://api.clawwallet.io/v1/stats');
+        const data = await res.json();
+        document.getElementById('stat-wallets').textContent = data.totalWallets;
+        document.getElementById('stat-txs').textContent = data.totalTransactions;
+      } catch (e) {
+        console.log('Stats not available');
+      }
+    }
+    
+    // Fetch leaderboard
+    async function loadLeaderboard() {
+      try {
+        const res = await fetch('https://api.clawwallet.io/v1/leaderboard?limit=5');
+        const data = await res.json();
+        const tbody = document.getElementById('leaderboard');
+        if (data.length === 0) {
+          tbody.innerHTML = '<tr class="border-t border-white/10"><td colspan="3" class="px-6 py-4 text-center text-gray-400">No agents yet — be the first!</td></tr>';
+          return;
+        }
+        tbody.innerHTML = data.map((w, i) => `
+          <tr class="border-t border-white/10">
+            <td class="px-6 py-3">${i + 1}</td>
+            <td class="px-6 py-3 font-mono text-sm">${w.agentId.slice(0, 20)}${w.agentId.length > 20 ? '...' : ''}</td>
+            <td class="px-6 py-3 text-right font-semibold text-indigo-400">${w.points}</td>
+          </tr>
+        `).join('');
+      } catch (e) {
+        console.log('Leaderboard not available');
+      }
+    }
+    
+    loadStats();
+    loadLeaderboard();
+  </script>
+</body>
+</html>

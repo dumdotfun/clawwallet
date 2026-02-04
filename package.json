@@ -1,0 +1,20 @@
+{
+  "name": "clawwallet",
+  "version": "0.1.0",
+  "description": "One-click Solana wallets for AI agents",
+  "private": true,
+  "workspaces": [
+    "sdk",
+    "api"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "build:sdk": "npm run build -w sdk",
+    "build:api": "npm run build -w api",
+    "start:api": "npm run start -w api",
+    "dev:api": "npm run dev -w api"
+  },
+  "keywords": ["solana", "wallet", "ai", "agents"],
+  "author": "ClawWallet",
+  "license": "MIT"
+}
