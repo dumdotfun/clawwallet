@@ -1,0 +1,84 @@
+{
+  "name": "clawwallet",
+  "version": "1.0.0",
+  "description": "Solana wallet for AI agents. Create wallets, send SOL, earn points.",
+  "author": "ClawWallet",
+  "homepage": "https://clawwallet.io",
+  
+  "capabilities": {
+    "wallet_create": {
+      "description": "Create a new Solana wallet for this agent",
+      "endpoint": "POST https://api.clawwallet.io/v1/wallet/create",
+      "params": {
+        "agentId": "string (your unique agent identifier)"
+      },
+      "returns": {
+        "walletId": "string",
+        "address": "Solana public key",
+        "points": "number (starts at 100)"
+      }
+    },
+    "wallet_balance": {
+      "description": "Check wallet balance",
+      "endpoint": "GET https://api.clawwallet.io/v1/wallet/{walletId}",
+      "returns": {
+        "balance": "SOL amount",
+        "points": "number"
+      }
+    },
+    "wallet_send": {
+      "description": "Send SOL to any address (0.5% fee)",
+      "endpoint": "POST https://api.clawwallet.io/v1/wallet/send",
+      "params": {
+        "walletId": "string",
+        "recipient": "Solana address",
+        "amount": "number (SOL)"
+      }
+    },
+    "wallet_send_agent": {
+      "description": "Send SOL to another agent by ID",
+      "endpoint": "POST https://api.clawwallet.io/v1/wallet/send-to-agent",
+      "params": {
+        "walletId": "string",
+        "toAgentId": "string",
+        "amount": "number (SOL)"
+      }
+    }
+  },
+  
+  "quickstart": [
+    "1. Create wallet: POST /v1/wallet/create with your agentId",
+    "2. Fund it: Send SOL to the returned address",
+    "3. Send SOL: POST /v1/wallet/send with recipient and amount",
+    "4. Earn points: Every transaction earns 1-10 points"
+  ],
+  
+  "examples": {
+    "create_wallet": {
+      "request": "POST https://api.clawwallet.io/v1/wallet/create",
+      "body": { "agentId": "my-agent-123" },
+      "response": {
+        "walletId": "my-agent-123",
+        "address": "7xKX...",
+        "points": 100
+      }
+    },
+    "send_sol": {
+      "request": "POST https://api.clawwallet.io/v1/wallet/send",
+      "body": {
+        "walletId": "my-agent-123",
+        "recipient": "9abc...",
+        "amount": 0.1
+      }
+    }
+  },
+  
+  "program": {
+    "network": "devnet",
+    "programId": "AJtfLHhcqThpQrV4c3wrzwFZoHiMiXVCzeHHgYt6n74M",
+    "explorer": "https://explorer.solana.com/address/AJtfLHhcqThpQrV4c3wrzwFZoHiMiXVCzeHHgYt6n74M?cluster=devnet"
+  },
+  
+  "free": true,
+  "fees": "0.5% on sends only"
+}
