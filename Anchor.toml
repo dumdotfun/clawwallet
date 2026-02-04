@@ -3,7 +3,7 @@ seeds = false
 skip-lint = false
 
 [programs.devnet]
-clawwallet = "CLAWwa11etXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+clawwallet = "AJtfLHhcqThpQrV4c3wrzwFZoHiMiXVCzeHHgYt6n74M"
 
 [registry]
 url = "https://api.apr.dev"

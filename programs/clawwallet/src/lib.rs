@@ -1,7 +1,7 @@
 use anchor_lang::prelude::*;
 use anchor_lang::system_program;
 
-declare_id!("CLAWwa11etXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+declare_id!("AJtfLHhcqThpQrV4c3wrzwFZoHiMiXVCzeHHgYt6n74M");
 
 #[program]
 pub mod clawwallet {
@@ -15,6 +15,7 @@ pub mod clawwallet {
         wallet.points = 100; // Welcome bonus
         wallet.created_at = Clock::get()?.unix_timestamp;
         wallet.tx_count = 0;
+        wallet.bump = *ctx.bumps.get("wallet").unwrap();
 
         emit!(WalletCreated {
             agent_id,
@@ -29,26 +30,27 @@ pub mod clawwallet {
     pub fn send_sol(ctx: Context<SendSol>, amount: u64) -> Result<()> {
         let fee = amount / 200; // 0.5%
         let send_amount = amount - fee;
-
+        
+        // Direct lamport manipulation for PDA with data
+        let wallet_info = ctx.accounts.wallet.to_account_info();
+        let recipient_info = ctx.accounts.recipient.to_account_info();
+        let treasury_info = ctx.accounts.treasury.to_account_info();
+        
+        // Check sufficient balance (keeping rent-exempt minimum)
+        let rent = anchor_lang::prelude::Rent::get()?;
+        let min_balance = rent.minimum_balance(wallet_info.data_len());
+        require!(
+            **wallet_info.lamports.borrow() >= amount + min_balance,
+            ClawWalletError::InsufficientFunds
+        );
+        
         // Transfer to recipient
-        let cpi_context = CpiContext::new(
-            ctx.accounts.system_program.to_account_info(),
-            system_program::Transfer {
-                from: ctx.accounts.wallet.to_account_info(),
-                to: ctx.accounts.recipient.to_account_info(),
-            },
-        );
-        system_program::transfer(cpi_context, send_amount)?;
-
+        **wallet_info.try_borrow_mut_lamports()? -= send_amount;
+        **recipient_info.try_borrow_mut_lamports()? += send_amount;
+        
         // Transfer fee to treasury
-        let cpi_context_fee = CpiContext::new(
-            ctx.accounts.system_program.to_account_info(),
-            system_program::Transfer {
-                from: ctx.accounts.wallet.to_account_info(),
-                to: ctx.accounts.treasury.to_account_info(),
-            },
-        );
-        system_program::transfer(cpi_context_fee, fee)?;
+        **wallet_info.try_borrow_mut_lamports()? -= fee;
+        **treasury_info.try_borrow_mut_lamports()? += fee;
 
         // Update wallet stats
         let wallet = &mut ctx.accounts.wallet;
@@ -167,6 +169,7 @@ pub struct AgentWallet {
     pub points: u64,
     pub created_at: i64,
     pub tx_count: u64,
+    pub bump: u8,
 }
 
 #[event]
@@ -192,4 +195,10 @@ pub struct AgentTransfer {
     pub amount: u64,
     pub fee: u64,
     pub points_earned: u64,
+}
+
+#[error_code]
+pub enum ClawWalletError {
+    #[msg("Insufficient funds in wallet")]
+    InsufficientFunds,
 }
