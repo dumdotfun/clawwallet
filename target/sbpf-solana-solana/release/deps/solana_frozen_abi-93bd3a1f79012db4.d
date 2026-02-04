@@ -1,0 +1,10 @@
+/home/node/openclaw/clawwallet/target/sbpf-solana-solana/release/deps/solana_frozen_abi-93bd3a1f79012db4.d: /home/node/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/solana-frozen-abi-1.16.25/src/lib.rs /home/node/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/solana-frozen-abi-1.16.25/src/abi_digester.rs /home/node/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/solana-frozen-abi-1.16.25/src/abi_example.rs /home/node/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/solana-frozen-abi-1.16.25/src/hash.rs
+
+/home/node/openclaw/clawwallet/target/sbpf-solana-solana/release/deps/libsolana_frozen_abi-93bd3a1f79012db4.rlib: /home/node/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/solana-frozen-abi-1.16.25/src/lib.rs /home/node/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/solana-frozen-abi-1.16.25/src/abi_digester.rs /home/node/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/solana-frozen-abi-1.16.25/src/abi_example.rs /home/node/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/solana-frozen-abi-1.16.25/src/hash.rs
+
+/home/node/openclaw/clawwallet/target/sbpf-solana-solana/release/deps/libsolana_frozen_abi-93bd3a1f79012db4.rmeta: /home/node/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/solana-frozen-abi-1.16.25/src/lib.rs /home/node/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/solana-frozen-abi-1.16.25/src/abi_digester.rs /home/node/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/solana-frozen-abi-1.16.25/src/abi_example.rs /home/node/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/solana-frozen-abi-1.16.25/src/hash.rs
+
+/home/node/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/solana-frozen-abi-1.16.25/src/lib.rs:
+/home/node/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/solana-frozen-abi-1.16.25/src/abi_digester.rs:
+/home/node/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/solana-frozen-abi-1.16.25/src/abi_example.rs:
+/home/node/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/solana-frozen-abi-1.16.25/src/hash.rs:

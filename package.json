@@ -14,7 +14,18 @@
     "start:api": "npm run start -w api",
     "dev:api": "npm run dev -w api"
   },
-  "keywords": ["solana", "wallet", "ai", "agents"],
+  "keywords": [
+    "solana",
+    "wallet",
+    "ai",
+    "agents"
+  ],
   "author": "ClawWallet",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@solana/web3.js": "^1.98.4",
+    "borsh": "^2.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
 }

@@ -1,7 +1,13 @@
 use anchor_lang::prelude::*;
 use anchor_lang::system_program;
+use anchor_spl::token::{self, Token, TokenAccount, Transfer as SplTransfer};
+use anchor_spl::associated_token::AssociatedToken;
 
 declare_id!("AJtfLHhcqThpQrV4c3wrzwFZoHiMiXVCzeHHgYt6n74M");
+
+// USDC mint addresses
+pub const USDC_MINT_DEVNET: &str = "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU";
+pub const USDC_MINT_MAINNET: &str = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v";
 
 #[program]
 pub mod clawwallet {
@@ -115,6 +121,61 @@ pub mod clawwallet {
 
         Ok(())
     }
+
+    /// Send SPL tokens (USDC, etc.) from agent wallet (0.5% fee)
+    pub fn send_token(ctx: Context<SendToken>, amount: u64) -> Result<()> {
+        let fee = amount / 200; // 0.5%
+        let send_amount = amount - fee;
+        
+        let wallet = &ctx.accounts.wallet;
+        let bump = wallet.bump;
+        let agent_id = wallet.agent_id.clone();
+        let seeds = &[b"wallet".as_ref(), agent_id.as_bytes(), &[bump]];
+        let signer_seeds = &[&seeds[..]];
+
+        // Transfer tokens to recipient
+        let cpi_ctx = CpiContext::new_with_signer(
+            ctx.accounts.token_program.to_account_info(),
+            SplTransfer {
+                from: ctx.accounts.wallet_token_account.to_account_info(),
+                to: ctx.accounts.recipient_token_account.to_account_info(),
+                authority: ctx.accounts.wallet.to_account_info(),
+            },
+            signer_seeds,
+        );
+        token::transfer(cpi_ctx, send_amount)?;
+
+        // Transfer fee to treasury
+        let cpi_ctx_fee = CpiContext::new_with_signer(
+            ctx.accounts.token_program.to_account_info(),
+            SplTransfer {
+                from: ctx.accounts.wallet_token_account.to_account_info(),
+                to: ctx.accounts.treasury_token_account.to_account_info(),
+                authority: ctx.accounts.wallet.to_account_info(),
+            },
+            signer_seeds,
+        );
+        token::transfer(cpi_ctx_fee, fee)?;
+
+        // Update wallet stats
+        let wallet = &mut ctx.accounts.wallet;
+        wallet.tx_count += 1;
+        
+        // Award more points for USDC transactions (2-20 points)
+        let points_earned = std::cmp::min(20, std::cmp::max(2, (amount / 100_000) as u64)); // USDC has 6 decimals
+        wallet.points += points_earned;
+
+        emit!(TokenSent {
+            agent_id: wallet.agent_id.clone(),
+            mint: ctx.accounts.mint.key(),
+            amount: send_amount,
+            fee,
+            recipient: ctx.accounts.recipient_token_account.key(),
+            points_earned,
+        });
+
+        Ok(())
+    }
 }
 
 #[derive(Accounts)]
@@ -160,6 +221,30 @@ pub struct SendToAgent<'info> {
     pub system_program: Program<'info, System>,
 }
 
+#[derive(Accounts)]
+pub struct SendToken<'info> {
+    #[account(mut, has_one = owner)]
+    pub wallet: Account<'info, AgentWallet>,
+    pub owner: Signer<'info>,
+    
+    /// CHECK: Token mint (USDC or other SPL token)
+    pub mint: AccountInfo<'info>,
+    
+    /// Wallet's token account
+    #[account(mut)]
+    pub wallet_token_account: Account<'info, TokenAccount>,
+    
+    /// Recipient's token account
+    #[account(mut)]
+    pub recipient_token_account: Account<'info, TokenAccount>,
+    
+    /// Treasury's token account for fees
+    #[account(mut)]
+    pub treasury_token_account: Account<'info, TokenAccount>,
+    
+    pub token_program: Program<'info, Token>,
+}
+
 #[account]
 #[derive(InitSpace)]
 pub struct AgentWallet {
@@ -194,6 +279,16 @@ pub struct AgentTransfer {
     pub to_agent: String,
     pub amount: u64,
     pub fee: u64,
+    pub points_earned: u64,
+}
+
+#[event]
+pub struct TokenSent {
+    pub agent_id: String,
+    pub mint: Pubkey,
+    pub amount: u64,
+    pub fee: u64,
+    pub recipient: Pubkey,
     pub points_earned: u64,
 }
 

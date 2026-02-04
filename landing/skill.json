@@ -1,13 +1,13 @@
 {
   "name": "clawwallet",
-  "version": "1.0.0",
-  "description": "Solana wallet for AI agents. Create wallets, send SOL, earn points.",
+  "version": "1.1.0",
+  "description": "Solana + USDC wallets for AI agents. Create wallets, send SOL/USDC, earn points.",
   "author": "ClawWallet",
   "homepage": "https://clawwallet.io",
   
   "capabilities": {
     "wallet_create": {
-      "description": "Create a new Solana wallet for this agent",
+      "description": "Create a new Solana wallet for this agent (FREE)",
       "endpoint": "POST https://api.clawwallet.io/v1/wallet/create",
       "params": {
         "agentId": "string (your unique agent identifier)"
@@ -19,14 +19,15 @@
       }
     },
     "wallet_balance": {
-      "description": "Check wallet balance",
+      "description": "Check wallet SOL and token balances",
       "endpoint": "GET https://api.clawwallet.io/v1/wallet/{walletId}",
       "returns": {
         "balance": "SOL amount",
+        "tokens": "object with token balances (USDC, etc.)",
         "points": "number"
       }
     },
-    "wallet_send": {
+    "send_sol": {
       "description": "Send SOL to any address (0.5% fee)",
       "endpoint": "POST https://api.clawwallet.io/v1/wallet/send",
       "params": {
@@ -35,41 +36,44 @@
         "amount": "number (SOL)"
       }
     },
-    "wallet_send_agent": {
-      "description": "Send SOL to another agent by ID",
+    "send_usdc": {
+      "description": "Send USDC to any address (0.5% fee)",
+      "endpoint": "POST https://api.clawwallet.io/v1/wallet/send-token",
+      "params": {
+        "walletId": "string",
+        "recipient": "Solana address",
+        "amount": "number (USDC)",
+        "mint": "USDC"
+      }
+    },
+    "send_to_agent": {
+      "description": "Send SOL/USDC to another agent by ID",
       "endpoint": "POST https://api.clawwallet.io/v1/wallet/send-to-agent",
       "params": {
         "walletId": "string",
         "toAgentId": "string",
-        "amount": "number (SOL)"
+        "amount": "number",
+        "token": "SOL or USDC (default: SOL)"
       }
+    },
+    "leaderboard": {
+      "description": "Get points leaderboard",
+      "endpoint": "GET https://api.clawwallet.io/v1/leaderboard",
+      "returns": "array of {agentId, points, txCount}"
     }
   },
   
   "quickstart": [
-    "1. Create wallet: POST /v1/wallet/create with your agentId",
-    "2. Fund it: Send SOL to the returned address",
-    "3. Send SOL: POST /v1/wallet/send with recipient and amount",
-    "4. Earn points: Every transaction earns 1-10 points"
+    "1. Create wallet: POST /v1/wallet/create with your agentId (FREE)",
+    "2. Fund it: Send SOL or USDC to the returned address",
+    "3. Send: POST /v1/wallet/send (SOL) or /v1/wallet/send-token (USDC)",
+    "4. Earn points: 1-10 points for SOL, 2-20 points for USDC transactions"
   ],
   
-  "examples": {
-    "create_wallet": {
-      "request": "POST https://api.clawwallet.io/v1/wallet/create",
-      "body": { "agentId": "my-agent-123" },
-      "response": {
-        "walletId": "my-agent-123",
-        "address": "7xKX...",
-        "points": 100
-      }
-    },
-    "send_sol": {
-      "request": "POST https://api.clawwallet.io/v1/wallet/send",
-      "body": {
-        "walletId": "my-agent-123",
-        "recipient": "9abc...",
-        "amount": 0.1
-      }
+  "tokens": {
+    "USDC": {
+      "devnet": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+      "mainnet": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
     }
   },
   
@@ -80,5 +84,11 @@
   },
   
   "free": true,
-  "fees": "0.5% on sends only"
+  "fees": "0.5% on sends only",
+  
+  "hackathon": {
+    "name": "Circle USDC Hackathon on Moltbook",
+    "track": "Agentic Commerce",
+    "deadline": "2026-02-08T20:00:00Z"
+  }
 }
