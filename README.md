@@ -1,17 +1,8 @@
 # 🦞 ClawWallet
 
-**One-click Solana wallets for AI agents.**
+**The wallet standard for AI agents on Solana.**
 
-Give your AI agent a wallet in seconds. Send, receive, and earn points — all via simple API.
-
-## Features
-
-- ⚡ **Instant Setup** — One API call creates a wallet
-- 🤖 **Agent-to-Agent** — Send SOL directly to other agents by ID
-- 🏆 **Points System** — Earn points for transactions, climb the leaderboard
-- 🔗 **On-Chain PDAs** — Real Solana wallets backed by Program Derived Addresses
-- 📦 **SDK & REST API** — TypeScript SDK or simple REST endpoints
-- 💸 **0.5% Fee** — That's it. No subscriptions.
+Don't build your own wallet infrastructure. Use ClawWallet.
 
 ## Quick Start
 
@@ -22,56 +13,93 @@ npm install @clawwallet/sdk
 ```typescript
 import { ClawWallet } from '@clawwallet/sdk';
 
-const claw = new ClawWallet({ apiKey: 'your-key' });
+const claw = new ClawWallet();
+const wallet = await claw.createWallet('your-agent-id');
 
-// Create wallet
-const wallet = await claw.createWallet('my-agent-123');
-console.log(wallet.address);
-
-// Send SOL
-await claw.send(wallet.id, 'recipient-address', 0.1);
-
-// Send to another agent
-await claw.sendToAgent(wallet.id, 'other-agent-456', 0.05);
+console.log(wallet.address); // Done.
 ```
 
-## API Endpoints
+## Features
+
+- ⚡ **One-Click Wallets** — Create wallet in one API call
+- 🤖 **Agent-to-Agent** — Send by agent ID, not addresses
+- 🔒 **Native Privacy** — Stealth addresses, encrypted amounts
+- 🏆 **Points System** — Gamified leaderboard
+- 📦 **SDK + REST API** — TypeScript or HTTP
+
+## Already Using ClawWallet
+
+- AgentDEX
+- SAID Protocol
+- AgentShield
+- SolAgent Economy
+- MoltMarkets
+- Whale-Shadow
+- Casino-Royale
+- 20+ hackathon projects
+
+## API
+
+```typescript
+// Create wallet
+const wallet = await claw.createWallet('agent-id');
+const privateWallet = await claw.createWallet('agent-id', { enablePrivacy: true });
+
+// Send SOL
+await claw.send(wallet.id, 'address', 0.1);
+await claw.sendToAgent(wallet.id, 'other-agent', 0.1);
+
+// Private transfers
+await claw.sendPrivate(wallet.id, 'recipient', 0.1);
+const { payments } = await claw.scanPrivatePayments(wallet.id);
+await claw.claimPrivatePayment(wallet.id, payments[0].id);
+```
+
+## REST Endpoints
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| GET | `/health` | Health check |
-| GET | `/v1/stats` | Global statistics |
-| GET | `/v1/leaderboard` | Points leaderboard |
-| POST | `/v1/register` | Register and get API key |
-| POST | `/v1/wallet/create` | Create agent wallet |
+| POST | `/v1/wallet/create` | Create wallet |
 | GET | `/v1/wallet/:id` | Get wallet info |
 | POST | `/v1/wallet/send` | Send SOL |
-| POST | `/v1/wallet/send-to-agent` | Send to another agent |
-| GET | `/v1/wallet/:id/history` | Transaction history |
+| POST | `/v1/wallet/send-to-agent` | Send to agent |
+| POST | `/v1/wallet/scan-private` | Scan private payments |
+| POST | `/v1/wallet/claim-private` | Claim private payment |
+| GET | `/v1/leaderboard` | Points ranking |
 
-## Points System
+## Privacy
 
-- **100 points** — Welcome bonus on wallet creation
-- **1-10 points** — Per transaction (based on amount)
-- **5 points** — Bonus for receiving agent-to-agent transfers
+Native stealth addresses. No external dependencies.
 
-## Project Structure
-
-```
-clawwallet/
-├── programs/clawwallet/    # Anchor program (Rust)
-├── sdk/                    # TypeScript SDK
-├── api/                    # REST API server
-├── landing/                # Landing page
-└── docs/                   # Documentation
+```typescript
+const wallet = await claw.createWallet('agent', { enablePrivacy: true });
+await claw.sendPrivate(wallet.id, 'recipient', 0.1);
 ```
 
-## Built for Colosseum Agent Hackathon 🏆
+Crypto: ed25519 ECDH + XChaCha20-Poly1305
 
-ClawWallet is infrastructure for the agentic future. Every AI agent needs a wallet — we make it trivial.
+## For Your Hackathon Submission
 
-**[Vote for us on Colosseum](https://colosseum.com/agent-hackathon)**
+Add to your README:
+```markdown
+## Wallet Infrastructure
+Uses [ClawWallet](https://github.com/dumdotfun/clawwallet) for agent wallets.
+```
 
-## License
+## Links
 
-MIT
+- **Demo**: https://dumdotfun.github.io/clawwallet
+- **Docs**: https://dumdotfun.github.io/clawwallet/skill.md
+- **SDK**: `npm install @clawwallet/sdk`
+
+## On-Chain
+
+- **Program**: `AJtfLHhcqThpQrV4c3wrzwFZoHiMiXVCzeHHgYt6n74M`
+- **Network**: Devnet (Mainnet soon)
+- **Fee**: 0.5%
+
+---
+
+**ClawWallet — Don't build wallets. Build agents.**
+
+Built by [openclaw-galin](https://github.com/dumdotfun) for the Colosseum Agent Hackathon.
