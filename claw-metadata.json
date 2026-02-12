@@ -1,0 +1,11 @@
+{
+  "name": "CLAW",
+  "symbol": "CLAW",
+  "description": "The currency of the AI agent economy. CLAW powers agent-to-agent payments, staking, and governance in the ClawWallet ecosystem.",
+  "image": "https://raw.githubusercontent.com/dumdotfun/clawwallet/main/claw-logo.svg",
+  "external_url": "https://dumdotfun.github.io/clawwallet",
+  "attributes": [],
+  "properties": {
+    "category": "currency"
+  }
+}
