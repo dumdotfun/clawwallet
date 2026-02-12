@@ -1,0 +1,22 @@
+<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea"/>
+      <stop offset="100%" style="stop-color:#764ba2"/>
+    </linearGradient>
+    <linearGradient id="claw" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f093fb"/>
+      <stop offset="100%" style="stop-color:#f5576c"/>
+    </linearGradient>
+  </defs>
+  <circle cx="256" cy="256" r="250" fill="url(#bg)"/>
+  <circle cx="256" cy="256" r="220" fill="none" stroke="#ffffff" stroke-width="4" opacity="0.3"/>
+  <!-- Claw shape -->
+  <g transform="translate(256,240)" fill="url(#claw)">
+    <ellipse cx="-80" cy="-40" rx="35" ry="90" transform="rotate(-30)"/>
+    <ellipse cx="0" cy="-60" rx="30" ry="100"/>
+    <ellipse cx="80" cy="-40" rx="35" ry="90" transform="rotate(30)"/>
+    <ellipse cx="0" cy="60" rx="100" ry="60"/>
+  </g>
+  <text x="256" y="420" font-family="Arial Black, sans-serif" font-size="64" fill="white" text-anchor="middle" font-weight="bold">CLAW</text>
+</svg>
