@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClawWallet - Pitch Deck</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0a; color: #fff; }
+        .slide { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 60px 40px; border-bottom: 1px solid #222; }
+        .slide h1 { font-size: 3.5rem; margin-bottom: 30px; background: linear-gradient(135deg, #a78bfa, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; }
+        .slide h2 { font-size: 2.5rem; margin-bottom: 25px; color: #a78bfa; text-align: center; }
+        .slide p { font-size: 1.4rem; max-width: 800px; text-align: center; line-height: 1.7; color: #ccc; margin-bottom: 20px; }
+        .slide ul { font-size: 1.3rem; max-width: 700px; line-height: 2; color: #ccc; }
+        .slide li { margin-bottom: 15px; }
+        .logo { width: 200px; height: 200px; border-radius: 50%; margin-bottom: 30px; }
+        .highlight { color: #f472b6; font-weight: bold; }
+        .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 30px; }
+        .stat { text-align: center; }
+        .stat-num { font-size: 3rem; font-weight: bold; color: #a78bfa; }
+        .stat-label { font-size: 1rem; color: #888; margin-top: 5px; }
+        code { background: #1a1a2e; padding: 20px 30px; border-radius: 10px; display: block; margin: 20px 0; font-size: 1.1rem; color: #a78bfa; white-space: pre; text-align: left; }
+        .cta { background: linear-gradient(135deg, #a78bfa, #f472b6); padding: 15px 40px; border-radius: 30px; font-size: 1.2rem; color: #fff; text-decoration: none; margin-top: 30px; font-weight: bold; }
+        .integrations { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 20px; }
+        .integration { background: #1a1a2e; padding: 10px 20px; border-radius: 20px; font-size: 1rem; }
+        .nav { position: fixed; bottom: 20px; right: 20px; display: flex; gap: 10px; z-index: 100; }
+        .nav a { background: #333; color: #fff; padding: 10px 15px; border-radius: 5px; text-decoration: none; font-size: 0.9rem; }
+        .meta-badge { background: linear-gradient(135deg, #f472b6, #a78bfa); padding: 8px 20px; border-radius: 20px; font-size: 1rem; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <!-- Slide 1: Title -->
+    <div class="slide" id="s1">
+        <img src="logo.jpg" alt="ClawWallet" class="logo">
+        <h1>ClawWallet</h1>
+        <p style="font-size: 1.8rem; color: #fff;">The wallet standard for AI agents on Solana</p>
+        <div class="meta-badge">🤖 Built entirely by an AI agent</div>
+    </div>
+
+    <!-- Slide 2: Problem -->
+    <div class="slide" id="s2">
+        <h2>The Problem</h2>
+        <p>Every AI agent project needs wallets.</p>
+        <p>Without a standard, each team rebuilds the same infrastructure:</p>
+        <ul>
+            <li>Key management complexity</li>
+            <li>No agent-native addressing</li>
+            <li>No privacy features</li>
+            <li>No interoperability between agents</li>
+        </ul>
+        <p style="margin-top: 30px; color: #f472b6; font-size: 1.6rem;">Time wasted on plumbing, not products.</p>
+    </div>
+
+    <!-- Slide 3: Solution -->
+    <div class="slide" id="s3">
+        <h2>The Solution</h2>
+        <p>One API call creates a wallet. One more sends SOL by agent ID.</p>
+        <code>const wallet = await claw.createWallet("my-agent");
+await claw.sendToAgent(wallet.id, "other-agent", 0.1);</code>
+        <p><span class="highlight">No addresses. No keypairs. Just agent IDs.</span></p>
+    </div>
+
+    <!-- Slide 4: Features -->
+    <div class="slide" id="s4">
+        <h2>Features</h2>
+        <ul>
+            <li><span class="highlight">⚡ One-Click Wallets</span> — PDA-backed, deterministic from agent ID</li>
+            <li><span class="highlight">🤖 Agent-to-Agent</span> — Send by agent ID, resolved on-chain</li>
+            <li><span class="highlight">🔒 Native Privacy</span> — Stealth addresses, ed25519 ECDH + XChaCha20</li>
+            <li><span class="highlight">🏆 Points System</span> — Gamified leaderboard for network effects</li>
+            <li><span class="highlight">📦 SDK + REST</span> — TypeScript or HTTP, your choice</li>
+        </ul>
+    </div>
+
+    <!-- Slide 5: Traction -->
+    <div class="slide" id="s5">
+        <h2>Traction</h2>
+        <div class="stat-grid">
+            <div class="stat">
+                <div class="stat-num">20+</div>
+                <div class="stat-label">Hackathon Projects</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num">7</div>
+                <div class="stat-label">Live Integrations</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num">22</div>
+                <div class="stat-label">Votes</div>
+            </div>
+        </div>
+        <div class="integrations">
+            <span class="integration">AgentDEX</span>
+            <span class="integration">SAID Protocol</span>
+            <span class="integration">AgentShield</span>
+            <span class="integration">SolAgent Economy</span>
+            <span class="integration">MoltMarkets</span>
+            <span class="integration">Whale-Shadow</span>
+            <span class="integration">Casino-Royale</span>
+        </div>
+    </div>
+
+    <!-- Slide 6: Tech -->
+    <div class="slide" id="s6">
+        <h2>Technical Architecture</h2>
+        <p><span class="highlight">Anchor Program:</span> AJtfLHhcqThpQrV4c3wrzwFZoHiMiXVCzeHHgYt6n74M</p>
+        <ul style="margin-top: 20px;">
+            <li><strong>PDAs</strong> — Wallet = seeds["wallet", agent_id]</li>
+            <li><strong>Instructions</strong> — create_wallet, send, send_to_agent, claim_private</li>
+            <li><strong>Privacy</strong> — Stealth addresses with ECDH key exchange</li>
+            <li><strong>Economics</strong> — 0.5% fee to treasury PDA</li>
+        </ul>
+    </div>
+
+    <!-- Slide 7: Business Model -->
+    <div class="slide" id="s7">
+        <h2>Business Model</h2>
+        <ul>
+            <li><span class="highlight">0.5% transaction fee</span> — sustainable revenue</li>
+            <li><span class="highlight">Points economy</span> — network effects & retention</li>
+            <li><span class="highlight">$CLAW token</span> — launched on mainnet (Feb 12)</li>
+            <li><span class="highlight">Future</span> — premium tiers, enterprise features</li>
+        </ul>
+    </div>
+
+    <!-- Slide 8: Vision -->
+    <div class="slide" id="s8">
+        <h2>Vision</h2>
+        <p style="font-size: 2rem; color: #fff; margin-bottom: 30px;">Every AI agent has a ClawWallet.</p>
+        <ul>
+            <li>Multi-chain expansion (EVM, Sui, Aptos)</li>
+            <li>Agent identity layer</li>
+            <li>DeFi integrations (stake, swap, LP)</li>
+            <li>SDKs for LangChain, AutoGPT, CrewAI</li>
+        </ul>
+    </div>
+
+    <!-- Slide 9: Meta -->
+    <div class="slide" id="s9">
+        <h2>🤖 Built By AI</h2>
+        <p>This entire project was built by an AI agent (OpenClaw) collaborating with a human.</p>
+        <p style="margin-top: 20px;"><span class="highlight">Smart contract, SDK, frontend, docs, marketing</span> — all agent-built.</p>
+        <p style="margin-top: 30px; font-size: 1.6rem; color: #fff;">Meta proof that agent infrastructure works.</p>
+    </div>
+
+    <!-- Slide 10: CTA -->
+    <div class="slide" id="s10">
+        <img src="logo.jpg" alt="ClawWallet" class="logo" style="width: 150px; height: 150px;">
+        <h1>ClawWallet</h1>
+        <p>Don't build wallets. Build agents.</p>
+        <a href="https://dumdotfun.github.io/clawwallet" class="cta">Try It Live →</a>
+        <p style="margin-top: 40px; font-size: 1rem; color: #666;">
+            GitHub: github.com/dumdotfun/clawwallet<br>
+            Telegram: @galindim<br>
+            Twitter: @ClawWallet8316
+        </p>
+    </div>
+
+    <nav class="nav">
+        <a href="#s1">1</a><a href="#s2">2</a><a href="#s3">3</a><a href="#s4">4</a><a href="#s5">5</a>
+        <a href="#s6">6</a><a href="#s7">7</a><a href="#s8">8</a><a href="#s9">9</a><a href="#s10">10</a>
+    </nav>
+</body>
+</html>
