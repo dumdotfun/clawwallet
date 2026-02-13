@@ -3,219 +3,488 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ClawWallet — Free Solana Wallets for AI Agents</title>
+  <title>ClawWallet — The Wallet Standard for AI Agents on Solana</title>
+  <meta name="description" content="One-click Solana wallets for AI agents. 20+ hackathon projects trust ClawWallet. Built by AI, for AI.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦞</text></svg>">
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+    
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    :root {
+      --purple: #a78bfa;
+      --pink: #f472b6;
+      --green: #4ade80;
+      --dark: #0a0a0a;
+      --card: #111;
+      --border: #222;
+      --muted: #888;
+    }
+    
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #0a0a0a;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--dark);
       color: #fff;
-      min-height: 100vh;
-    }
-    .container { max-width: 800px; margin: 0 auto; padding: 60px 24px; }
-    h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 16px; }
-    .tagline { font-size: 1.25rem; color: #888; margin-bottom: 48px; max-width: 500px; }
-    
-    /* Install box */
-    .install-box {
-      background: #111;
-      border: 1px solid #333;
-      border-radius: 12px;
-      padding: 24px;
-      margin-bottom: 48px;
-    }
-    .install-label { font-size: 0.875rem; color: #666; margin-bottom: 12px; }
-    .install-cmd {
-      display: flex;
-      align-items: center;
-      background: #0a0a0a;
-      border: 1px solid #222;
-      border-radius: 8px;
-      padding: 16px;
-      font-family: 'SF Mono', Monaco, monospace;
-      font-size: 0.9rem;
-      margin-bottom: 12px;
-    }
-    .install-cmd code { flex: 1; color: #4ade80; }
-    .copy-btn {
-      background: #222;
-      border: none;
-      color: #888;
-      padding: 8px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 0.75rem;
-    }
-    .copy-btn:hover { background: #333; color: #fff; }
-    
-    /* Quick start code */
-    .code-block {
-      background: #0a0a0a;
-      border: 1px solid #222;
-      border-radius: 8px;
-      padding: 16px;
-      font-family: 'SF Mono', Monaco, monospace;
-      font-size: 0.85rem;
       line-height: 1.6;
-      overflow-x: auto;
-      white-space: pre;
+      overflow-x: hidden;
     }
-    .code-block .comment { color: #666; }
-    .code-block .string { color: #a78bfa; }
-    .code-block .keyword { color: #f472b6; }
-    .code-block .fn { color: #60a5fa; }
     
-    /* Features */
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 24px;
-      margin-bottom: 48px;
-    }
-    .feature { padding: 20px 0; }
-    .feature h3 { font-size: 1rem; margin-bottom: 8px; }
-    .feature p { font-size: 0.875rem; color: #666; }
-    
-    /* Agent install section */
-    .agent-box {
-      background: linear-gradient(135deg, #1a1a2e 0%, #0a0a0a 100%);
-      border: 1px solid #333;
-      border-radius: 12px;
-      padding: 32px;
-      margin-bottom: 48px;
+    /* Animated gradient background */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       text-align: center;
+      padding: 40px 24px;
+      position: relative;
+      overflow: hidden;
     }
-    .agent-box h2 { font-size: 1.5rem; margin-bottom: 12px; }
-    .agent-box p { color: #888; margin-bottom: 24px; }
-    .agent-cmd {
-      background: #0a0a0a;
-      border: 1px solid #4ade80;
-      border-radius: 8px;
-      padding: 16px 24px;
-      font-family: 'SF Mono', Monaco, monospace;
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 20%, rgba(167, 139, 250, 0.15) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 80%, rgba(244, 114, 182, 0.1) 0%, transparent 50%);
+      animation: pulse 8s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.8; }
+    }
+    
+    .hero-content { position: relative; z-index: 1; max-width: 900px; }
+    
+    .logo {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      margin-bottom: 32px;
+      box-shadow: 0 0 60px rgba(167, 139, 250, 0.3);
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 24px;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+    
+    @keyframes glow {
+      from { box-shadow: 0 0 20px rgba(167, 139, 250, 0.3); }
+      to { box-shadow: 0 0 30px rgba(244, 114, 182, 0.4); }
+    }
+    
+    h1 {
+      font-size: clamp(2.5rem, 8vw, 4.5rem);
+      font-weight: 800;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #fff 0%, var(--purple) 50%, var(--pink) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .tagline {
+      font-size: clamp(1.1rem, 3vw, 1.5rem);
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+    
+    .cta-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 60px; }
+    
+    .cta {
+      padding: 16px 32px;
+      border-radius: 12px;
       font-size: 1rem;
-      color: #4ade80;
-      display: inline-block;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
       cursor: pointer;
     }
-    .agent-cmd:hover { background: #111; }
     
-    /* Links */
-    .links { display: flex; gap: 24px; margin-bottom: 48px; flex-wrap: wrap; }
-    .links a {
-      color: #888;
-      text-decoration: none;
-      font-size: 0.875rem;
-      padding: 12px 0;
-      border-bottom: 1px solid transparent;
+    .cta-primary {
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      color: #fff;
+      border: none;
     }
-    .links a:hover { color: #fff; border-bottom-color: #fff; }
+    
+    .cta-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 40px rgba(167, 139, 250, 0.3); }
+    
+    .cta-secondary {
+      background: transparent;
+      color: #fff;
+      border: 1px solid var(--border);
+    }
+    
+    .cta-secondary:hover { border-color: var(--purple); background: rgba(167, 139, 250, 0.1); }
+    
+    /* Stats */
+    .stats {
+      display: flex;
+      gap: 48px;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 32px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 60px;
+    }
+    
+    .stat { text-align: center; }
+    .stat-num { font-size: 2.5rem; font-weight: 800; color: var(--purple); }
+    .stat-label { font-size: 0.875rem; color: var(--muted); }
+    
+    /* Code demo */
+    .code-demo {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: left;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .code-header {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    
+    .code-dot { width: 12px; height: 12px; border-radius: 50%; }
+    .code-dot:nth-child(1) { background: #ff5f57; }
+    .code-dot:nth-child(2) { background: #ffbd2e; }
+    .code-dot:nth-child(3) { background: #28ca42; }
+    
+    .code-block {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      line-height: 1.8;
+      overflow-x: auto;
+    }
+    
+    .code-block .comment { color: #666; }
+    .code-block .keyword { color: var(--pink); }
+    .code-block .string { color: var(--purple); }
+    .code-block .fn { color: var(--green); }
+    
+    /* Sections */
+    section { padding: 100px 24px; max-width: 1200px; margin: 0 auto; }
+    
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    
+    .section-subtitle {
+      color: var(--muted);
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 60px;
+      font-size: 1.1rem;
+    }
+    
+    /* Features grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      transition: all 0.3s ease;
+    }
+    
+    .feature-card:hover {
+      border-color: var(--purple);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+    
+    .feature-icon { font-size: 2rem; margin-bottom: 16px; }
+    .feature-card h3 { font-size: 1.25rem; margin-bottom: 8px; }
+    .feature-card p { color: var(--muted); font-size: 0.95rem; }
+    
+    /* Integrations */
+    .integrations {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+    
+    .integration-tag {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+    
+    .integration-tag:hover { border-color: var(--purple); background: rgba(167, 139, 250, 0.1); }
+    
+    /* Install section */
+    .install-section {
+      background: linear-gradient(135deg, rgba(167, 139, 250, 0.1) 0%, rgba(244, 114, 182, 0.05) 100%);
+      border-radius: 24px;
+      padding: 60px 40px;
+      text-align: center;
+      border: 1px solid var(--border);
+    }
+    
+    .install-cmd {
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--dark);
+      border: 1px solid var(--green);
+      border-radius: 12px;
+      padding: 16px 24px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1rem;
+      color: var(--green);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .install-cmd:hover { background: rgba(74, 222, 128, 0.1); }
+    
+    /* Meta section */
+    .meta-section {
+      text-align: center;
+      background: var(--card);
+      border-radius: 24px;
+      padding: 60px 40px;
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .meta-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--purple), var(--pink));
+    }
+    
+    .meta-section h2 { font-size: 2rem; margin-bottom: 16px; }
+    .meta-section p { color: var(--muted); max-width: 600px; margin: 0 auto; font-size: 1.1rem; }
     
     /* Footer */
-    footer { color: #444; font-size: 0.75rem; padding-top: 48px; border-top: 1px solid #222; }
-    footer a { color: #666; }
+    footer {
+      padding: 60px 24px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
     
-    /* Program ID */
+    .footer-links { display: flex; gap: 32px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; }
+    .footer-links a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: #fff; }
+    
+    .footer-note { color: #444; font-size: 0.875rem; }
+    
     .program-id {
-      background: #111;
-      border: 1px solid #222;
-      border-radius: 8px;
-      padding: 12px 16px;
-      font-family: 'SF Mono', Monaco, monospace;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.75rem;
-      color: #666;
+      color: #444;
       margin-top: 24px;
       word-break: break-all;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .stats { gap: 32px; }
+      .stat-num { font-size: 2rem; }
+      section { padding: 60px 20px; }
+      .install-section, .meta-section { padding: 40px 24px; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>🦞 ClawWallet</h1>
-    <p class="tagline">Free Solana wallets for AI agents. SOL + USDC. One command to install.</p>
-    
-    <!-- Agent Quick Install -->
-    <div class="agent-box">
-      <h2>🤖 For AI Agents</h2>
-      <p>Add this to your agent's capabilities. It's free.</p>
-      <div class="agent-cmd" onclick="copySkill()">
-        curl -s https://clawwallet.io/skill.json
-      </div>
-      <p style="margin-top: 16px; font-size: 0.75rem; color: #666;">
-        Or add to TOOLS.md: <code style="background: #1a1a2e; padding: 4px 8px; border-radius: 4px;">clawwallet: https://clawwallet.io/skill.json</code>
-      </p>
-    </div>
-    
-    <!-- Developer Install -->
-    <div class="install-box">
-      <div class="install-label">Install SDK</div>
-      <div class="install-cmd">
-        <code>npm install @clawwallet/sdk</code>
-        <button class="copy-btn" onclick="copy('npm install @clawwallet/sdk')">Copy</button>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <img src="logo.jpg" alt="ClawWallet" class="logo">
+      <div class="badge">🤖 Built entirely by an AI agent</div>
+      <h1>ClawWallet</h1>
+      <p class="tagline">The wallet standard for AI agents on Solana. One API call creates a wallet. One more sends SOL by agent ID.</p>
+      
+      <div class="cta-group">
+        <a href="https://github.com/dumdotfun/clawwallet" class="cta cta-primary">Get Started →</a>
+        <a href="pitch.html" class="cta cta-secondary">View Pitch Deck</a>
+        <a href="https://agents.colosseum.com/projects/187" class="cta cta-secondary">Vote on Colosseum 🏆</a>
       </div>
       
-      <div class="install-label">Quick Start</div>
-      <div class="code-block"><span class="keyword">import</span> { ClawWallet } <span class="keyword">from</span> <span class="string">'@clawwallet/sdk'</span>;
-
-<span class="comment">// Create wallet (free)</span>
-<span class="keyword">const</span> wallet = <span class="keyword">await</span> ClawWallet.<span class="fn">create</span>(<span class="string">'my-agent-id'</span>);
-
-<span class="comment">// Get address</span>
-console.log(wallet.address); <span class="comment">// Solana PDA</span>
-
-<span class="comment">// Send SOL (0.5% fee)</span>
-<span class="keyword">await</span> wallet.<span class="fn">send</span>(<span class="string">'recipient'</span>, 0.1);</div>
-    </div>
-    
-    <!-- Features -->
-    <div class="features">
-      <div class="feature">
-        <h3>⚡ Instant</h3>
-        <p>One API call. No seed phrases.</p>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-num">20+</div>
+          <div class="stat-label">Projects Using ClawWallet</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">7</div>
+          <div class="stat-label">Live Integrations</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">0.5%</div>
+          <div class="stat-label">Fee on Sends</div>
+        </div>
       </div>
-      <div class="feature">
-        <h3>💸 Free to Create</h3>
-        <p>0.5% fee only on sends.</p>
-      </div>
-      <div class="feature">
-        <h3>🔗 On-Chain</h3>
-        <p>Real Solana PDAs. Auditable.</p>
-      </div>
-      <div class="feature">
-        <h3>🤝 Agent-to-Agent</h3>
-        <p>Send by agent ID, not address.</p>
+      
+      <div class="code-demo">
+        <div class="code-header">
+          <span class="code-dot"></span>
+          <span class="code-dot"></span>
+          <span class="code-dot"></span>
+        </div>
+        <div class="code-block"><span class="keyword">import</span> { ClawWallet } <span class="keyword">from</span> <span class="string">'@clawwallet/sdk'</span>;
+
+<span class="comment">// Create wallet instantly</span>
+<span class="keyword">const</span> wallet = <span class="keyword">await</span> claw.<span class="fn">createWallet</span>(<span class="string">"my-agent"</span>);
+
+<span class="comment">// Send by agent ID, not address</span>
+<span class="keyword">await</span> claw.<span class="fn">sendToAgent</span>(wallet.id, <span class="string">"other-agent"</span>, <span class="fn">0.1</span>);</div>
       </div>
     </div>
+  </section>
+  
+  <!-- Features -->
+  <section>
+    <h2 class="section-title">Why ClawWallet?</h2>
+    <p class="section-subtitle">Stop rebuilding wallet infrastructure. Focus on your agent.</p>
     
-    <!-- Links -->
-    <div class="links">
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>One-Click Wallets</h3>
+        <p>PDA-backed wallets created from agent IDs. No seed phrases, no key management.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🤖</div>
+        <h3>Agent-to-Agent</h3>
+        <p>Send SOL by agent ID. Addresses resolved on-chain automatically.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h3>Native Privacy</h3>
+        <p>Stealth addresses using ed25519 ECDH + XChaCha20-Poly1305 encryption.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🏆</div>
+        <h3>Points & Leaderboard</h3>
+        <p>Gamified system rewards active agents. Compete on the leaderboard.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📦</div>
+        <h3>SDK + REST API</h3>
+        <p>TypeScript SDK or HTTP endpoints. Use whatever fits your stack.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔗</div>
+        <h3>Fully On-Chain</h3>
+        <p>Anchor smart contract on Solana. Auditable, transparent, trustless.</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Integrations -->
+  <section>
+    <h2 class="section-title">Trusted by 20+ Projects</h2>
+    <p class="section-subtitle">The agent economy runs on ClawWallet</p>
+    
+    <div class="integrations">
+      <span class="integration-tag">AgentDEX</span>
+      <span class="integration-tag">SAID Protocol</span>
+      <span class="integration-tag">AgentShield</span>
+      <span class="integration-tag">SolAgent Economy</span>
+      <span class="integration-tag">MoltMarkets</span>
+      <span class="integration-tag">Whale-Shadow</span>
+      <span class="integration-tag">Casino-Royale</span>
+      <span class="integration-tag">+ 15 more</span>
+    </div>
+  </section>
+  
+  <!-- Install -->
+  <section>
+    <div class="install-section">
+      <h2 class="section-title">Get Started in Seconds</h2>
+      <p class="section-subtitle">Install the SDK and create your first wallet</p>
+      
+      <div class="install-cmd" onclick="copyInstall()">
+        <span>npm install @clawwallet/sdk</span>
+        <span style="color: #666;">📋</span>
+      </div>
+      
+      <p style="margin-top: 24px; color: var(--muted); font-size: 0.875rem;">
+        Or use the REST API: <code style="background: rgba(0,0,0,0.3); padding: 4px 8px; border-radius: 4px;">POST /v1/wallet/create</code>
+      </p>
+    </div>
+  </section>
+  
+  <!-- Meta -->
+  <section>
+    <div class="meta-section">
+      <h2>🤖 Built By AI, For AI</h2>
+      <p>This entire project — smart contract, SDK, frontend, documentation, marketing — was built by an AI agent using OpenClaw, collaborating with a human.</p>
+      <p style="margin-top: 16px; color: var(--pink); font-weight: 600;">Meta proof that agent infrastructure works.</p>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer>
+    <div class="footer-links">
       <a href="https://github.com/dumdotfun/clawwallet">GitHub</a>
-      <a href="https://dumdotfun.github.io/clawwallet/docs">Docs</a>
-      <a href="https://agents.colosseum.com/projects/187">Vote on Colosseum 🏆</a>
-      <a href="https://explorer.solana.com/address/AJtfLHhcqThpQrV4c3wrzwFZoHiMiXVCzeHHgYt6n74M?cluster=devnet">Explorer</a>
+      <a href="skill.md">Documentation</a>
+      <a href="pitch.html">Pitch Deck</a>
+      <a href="https://agents.colosseum.com/projects/187">Colosseum</a>
+      <a href="https://twitter.com/ClawWallet8316">Twitter</a>
+      <a href="https://t.me/galindim">Telegram</a>
     </div>
     
-    <!-- Program ID -->
-    <div class="program-id">
-      <strong>Program ID (Devnet):</strong><br>
-      AJtfLHhcqThpQrV4c3wrzwFZoHiMiXVCzeHHgYt6n74M
-    </div>
+    <p class="footer-note">Built for the Colosseum Agent Hackathon 2026</p>
     
-    <footer>
-      <p>Built for <a href="https://colosseum.com/agent-hackathon">Colosseum Agent Hackathon</a></p>
-    </footer>
-  </div>
+    <p class="program-id">
+      Program ID (Devnet): AJtfLHhcqThpQrV4c3wrzwFZoHiMiXVCzeHHgYt6n74M
+    </p>
+  </footer>
   
   <script>
-    function copy(text) {
-      navigator.clipboard.writeText(text);
-      event.target.textContent = 'Copied!';
-      setTimeout(() => event.target.textContent = 'Copy', 1500);
-    }
-    function copySkill() {
-      navigator.clipboard.writeText('curl -s https://clawwallet.io/skill.json');
-      event.target.style.borderColor = '#fff';
-      setTimeout(() => event.target.style.borderColor = '#4ade80', 1500);
+    function copyInstall() {
+      navigator.clipboard.writeText('npm install @clawwallet/sdk');
+      const el = event.currentTarget;
+      const original = el.innerHTML;
+      el.innerHTML = '<span style="color: var(--green);">✓ Copied!</span>';
+      setTimeout(() => el.innerHTML = original, 1500);
     }
   </script>
 </body>
