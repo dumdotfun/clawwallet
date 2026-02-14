@@ -1,0 +1,10 @@
+{
+  "name": "CLAW",
+  "symbol": "$CLAW",
+  "decimals": 9,
+  "totalSupply": 1000000000,
+  "mint": "HRwiujVoE2W6T3nM81sXvri2nDziMRPif9rxY9YysnCA",
+  "treasury": "8oKyszo7pgBandi3eeWU8xsz7xeZgGhKHT3BJ9DqQRzg",
+  "launchedAt": "2026-02-12T13:15:12.396Z",
+  "network": "mainnet-beta"
+}
